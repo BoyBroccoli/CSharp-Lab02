@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
+
 namespace Polymorphism
 {
-    public class Employee
+    public class Employee : IWorker
     {
-        public virtual string CalculateWeeklySalary(int weeklyHours, int wage)
+        public string CalculateWeeklySalary(int weeklyHours, int wage)
         {
             var salary = 40 * wage;
             string result = $"\nThis ANGRY EMPLOYEE worked {weeklyHours} hrs. " + 
@@ -17,9 +18,9 @@ namespace Polymorphism
         }
     }
 
-    public class Contractor
+    public class Contractor : IWorker
     {
-        public override string CalculateWeeklySalary(int weeklyHours, int wage)
+        public  string CalculateWeeklySalary(int weeklyHours, int wage)
         {
             var salary = weeklyHours * wage;
             string result = $"\nThis HAPPY CONTRACTOR worked {weeklyHours} hrs. " + 
@@ -38,7 +39,7 @@ namespace Polymorphism
         private static void Main(string[] args)
         {
             const int hours = 55, wage = 70;
-            List<Employee> employees = Utils.GetEmployees();
+            List<IWorker> employees = Utils.GetEmployees();
 
             foreach (var e in employees)
             {
@@ -50,11 +51,11 @@ namespace Polymorphism
     }
     public static class Utils 
     {
-        public static List<Employee> GetEmployees()
+        public static List<IWorker> GetEmployees()
         {
             var someEmployee = new Employee();
             var someContractor = new Contractor();
-            var everyone = new List<Employee> { someEmployee, someContractor };
+            var everyone = new List<IWorker> { someEmployee, someContractor };
             return everyone;
         }
     }
